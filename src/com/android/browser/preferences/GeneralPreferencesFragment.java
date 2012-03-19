@@ -42,6 +42,13 @@ import com.android.browser.R;
 import com.android.browser.UrlUtils;
 import com.android.browser.homepages.HomeProvider;
 
+import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
+import android.webkit.WebStorage;
+
+import java.util.Map;
+import java.util.Set;
+
 public class GeneralPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
@@ -76,6 +83,18 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         pref.setPersistent(false);
         pref.setValue(getHomepageValue());
         pref.setOnPreferenceChangeListener(this);
+
+        Preference e = findPreference(PreferenceKeys.PREF_SEARCH_ENGINE);
+        e.setOnPreferenceChangeListener(this);
+        updateListPreferenceSummary((ListPreference) e);
+
+        e = findPreference(PreferenceKeys.PREF_PLUGIN_STATE);
+        e.setOnPreferenceChangeListener(this);
+        updateListPreferenceSummary((ListPreference) e);
+
+        PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(PreferenceKeys.PREF_WEBSITE_SETTINGS);
+        websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
+
     }
 
     @Override
@@ -109,8 +128,13 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             pref.setSummary(getHomepageSummary());
             ((ListPreference)pref).setValue(getHomepageValue());
             return false;
+        } else if (pref.getKey().equals(PreferenceKeys.PREF_PLUGIN_STATE)
+                   || pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
+            ListPreference lp = (ListPreference) pref;
+            lp.setValue((String) objValue);
+            updateListPreferenceSummary(lp);
+            return false;
         }
-
         return true;
     }
 
@@ -199,10 +223,31 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         return null;
     }
 
+    void updateListPreferenceSummary(ListPreference e) {
+        e.setSummary(e.getEntry());
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-
+        final PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(PreferenceKeys.PREF_WEBSITE_SETTINGS);
+        websiteSettings.setEnabled(false);
+        WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
+            @Override
+            public void onReceiveValue(Map webStorageOrigins) {
+                if ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) {
+                    websiteSettings.setEnabled(true);
+                }
+            }
+        });
+        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
+            @Override
+            public void onReceiveValue(Set<String> geolocationOrigins) {
+                if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
+                    websiteSettings.setEnabled(true);
+                }
+            }
+        });
         refreshUi();
     }
 

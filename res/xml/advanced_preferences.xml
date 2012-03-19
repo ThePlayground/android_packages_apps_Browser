@@ -18,19 +18,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Entries and values in this list are set dynamically. -->
-    <com.android.browser.search.SearchEnginePreference
-            android:key="search_engine"
-            android:title="@string/pref_content_search_engine"
-            android:defaultValue="google"
-            android:summary="@string/pref_content_search_engine_summary"
-            android:dialogTitle="@string/pref_content_search_engine" />
-
-    <ListPreference
-        android:key="user_agent"
-        android:title="@string/pref_development_uastring"
-        android:entries="@array/pref_development_ua_choices"
-        android:entryValues="@array/pref_development_ua_values"
-        android:defaultValue="0"/>
 
     <CheckBoxPreference
             android:key="open_in_background"
@@ -42,24 +29,18 @@
             android:key="enable_javascript"
             android:defaultValue="true"
             android:title="@string/pref_content_javascript" />
+
+    <ListPreference
+            android:key="user_agent"
+            android:title="@string/pref_development_uastring"
+            android:entries="@array/pref_development_ua_choices"
+            android:entryValues="@array/pref_development_ua_values"
+            android:defaultValue="0"/>
     
     <CheckBoxPreference
             android:key="enable_cpu_upload_path"
             android:defaultValue="false"
             android:title="@string/pref_development_cpu_upload_path" />
-
-    <ListPreference
-            android:key="plugin_state"
-            android:title="@string/pref_content_plugins"
-            android:defaultValue="ON"
-            android:entries="@array/pref_content_plugins_choices"
-            android:entryValues="@array/pref_content_plugins_values"
-            android:dialogTitle="@string/pref_content_plugins" />
-
-    <PreferenceScreen
-            android:key="website_settings"
-            android:title="@string/pref_extras_website_settings"
-            android:summary="@string/pref_extras_website_settings_summary" />
 
     <PreferenceCategory android:title="@string/pref_content_title">
 

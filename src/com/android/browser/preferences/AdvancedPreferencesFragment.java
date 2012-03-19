@@ -19,7 +19,6 @@ package com.android.browser.preferences;
 import com.android.browser.BrowserActivity;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -45,10 +44,6 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.advanced_preferences);
 
-        PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
-                PreferenceKeys.PREF_WEBSITE_SETTINGS);
-        websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
-
         Preference e = findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualDefaultZoomName(
@@ -61,13 +56,6 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
         e.setOnPreferenceChangeListener(this);
 
-        e = findPreference(PreferenceKeys.PREF_SEARCH_ENGINE);
-        e.setOnPreferenceChangeListener(this);
-        updateListPreferenceSummary((ListPreference) e);
-
-        e = findPreference(PreferenceKeys.PREF_PLUGIN_STATE);
-        e.setOnPreferenceChangeListener(this);
-        updateListPreferenceSummary((ListPreference) e);
     }
 
     void updateListPreferenceSummary(ListPreference e) {
@@ -82,25 +70,6 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
     @Override
     public void onResume() {
         super.onResume();
-        final PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
-                PreferenceKeys.PREF_WEBSITE_SETTINGS);
-        websiteSettings.setEnabled(false);
-        WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
-            @Override
-            public void onReceiveValue(Map webStorageOrigins) {
-                if ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) {
-                    websiteSettings.setEnabled(true);
-                }
-            }
-        });
-        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
-            @Override
-            public void onReceiveValue(Set<String> geolocationOrigins) {
-                if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
-                    websiteSettings.setEnabled(true);
-                }
-            }
-        });
     }
 
     @Override
@@ -125,12 +94,6 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                         getActivity(), BrowserActivity.class));
                 return true;
             }
-        } else if (pref.getKey().equals(PreferenceKeys.PREF_PLUGIN_STATE)
-                || pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
-            ListPreference lp = (ListPreference) pref;
-            lp.setValue((String) objValue);
-            updateListPreferenceSummary(lp);
-            return false;
         }
         return false;
     }
