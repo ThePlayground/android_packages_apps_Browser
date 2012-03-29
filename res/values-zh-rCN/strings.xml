@@ -108,6 +108,8 @@
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"在新标签页中打开"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"在新的后台标签页中打开"</string>
+    <string name="contextmenu_openlink_incognito_newwindow">在新的匿名标签页中打开</string>
+    <string name="contextmenu_openlink_incognito_newwindow_background">在新的匿名的后台标签页中打开</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"保存链接"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"分享链接"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"复制"</string>
@@ -312,8 +314,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB 存储设备正忙。要允许下载，请在通知中触摸“关闭 USB 存储设备”。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD 卡正忙。要允许下载，请在通知中触摸“关闭 USB 存储设备”。"</string>
     <string name="cannot_download" msgid="8150552478556798780">"只能从“http”或“https”网址下载。"</string>
-    <string name="download_pending" msgid="2599683668575349559">"正在开始下载..."</string>
-    <string name="help_page" msgid="2906208423557552540">"帮助"</string>
+    <string name="download_pending" msgid="2599683668575349559">"正在准备下载..."</string>
     <string name="search_the_web" msgid="6046130189241962337">"搜索网页"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"浏览器存储空间已满"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"触摸可释放空间。"</string>
