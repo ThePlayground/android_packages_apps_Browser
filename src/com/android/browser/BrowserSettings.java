@@ -364,6 +364,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             if (mController.getUi() != null) {
                 mController.getUi().setUseSlideTransitions(sharedPreferences.getBoolean(key, true));
             }
+        } else if (PREF_ENABLE_QUICK_CONTROLS_EXT.equals(key)) {
+            if (mController.getUi() != null) {
+                mController.getUi().setUseQuickControlsExt(sharedPreferences.getBoolean(key, false));
+            }
         }
     }
 
@@ -779,6 +783,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean useQuickControls() {
         return mPrefs.getBoolean(PREF_ENABLE_QUICK_CONTROLS, false);
+    }
+
+    public boolean useQuickControlsExt() {
+        return mPrefs.getBoolean(PREF_ENABLE_QUICK_CONTROLS_EXT, false);
     }
 
     public boolean useMostVisitedHomepage() {

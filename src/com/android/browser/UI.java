@@ -151,6 +151,8 @@ public interface UI {
 
     void setUseSlideTransitions(boolean enabled);
 
+    void setUseQuickControlsExt(boolean enabled);
+
     public boolean shouldCaptureThumbnails();
 
 }
